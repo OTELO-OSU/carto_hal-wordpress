@@ -38,9 +38,29 @@ class Widget_Carto_Hal extends WP_Widget
 		//Add fields
 		$this->add_field('title', 'Enter title', 'Cartographie HAL', 'text');
 		$this->add_field('ApiURL', 'Enter ApiUrl', 'http://api.archives-ouvertes.fr', 'text');
-		$this->add_field('DisplayMap', 'Display or not map', 'true', 'text');
-		$this->add_field('DisplayDatatable', 'Display or not table', 'false', 'text');
-		$this->add_field('query', 'Enter a collection', 'UL', 'text');
+		$this->add_field('DisplayMap', 'Display map', 'true', 'checkbox');
+		$this->add_field('DisplayDatatable', 'Display table', 'false', 'checkbox');
+		$this->add_field('query', 'Enter a collection', 'UNIV-LORRAINE', 'text');
+		$this->add_field('COMM', 'document_type', 'false', 'checkbox');
+		$this->add_field('ART', 'document_type', 'false', 'checkbox');
+		$this->add_field('IMG', 'document_type', 'false', 'checkbox');
+		$this->add_field('THESE', 'document_type', 'false', 'checkbox');
+		$this->add_field('UNDEFINED', 'document_type', 'false', 'checkbox');
+		$this->add_field('OTHER', 'document_type', 'false', 'checkbox');
+		$this->add_field('COUV', 'document_type', 'false', 'checkbox');
+		$this->add_field('OUV', 'document_type', 'false', 'checkbox');
+		$this->add_field('DOUV', 'document_type', 'false', 'checkbox');
+		$this->add_field('REPORT', 'document_type', 'false', 'checkbox');
+		$this->add_field('HDR', 'document_type', 'false', 'checkbox');
+		$this->add_field('PATENT', 'document_type', 'false', 'checkbox');
+		$this->add_field('VIDEO', 'document_type', 'false', 'checkbox');
+		$this->add_field('LECTURE', 'document_type', 'false', 'checkbox');
+		$this->add_field('NOTE', 'document_type', 'false', 'checkbox');
+		$this->add_field('MAP', 'document_type', 'false', 'checkbox');
+		$this->add_field('SON', 'document_type', 'true', 'checkbox');
+		$this->add_field('OTHERREPORT', 'document_type', 'false', 'checkbox');
+		$this->add_field('PRESCONF', 'document_type', 'false', 'checkbox');
+		$this->add_field('POSTER', 'document_type', 'false', 'checkbox');
 
 
 		//Init the widget
@@ -107,20 +127,19 @@ class Widget_Carto_Hal extends WP_Widget
         $=jQuery.noConflict(); 
          var ConfigWidgetHal={
             ApiURL:"<?php echo esc_attr(isset($instance["ApiURL"]) ? $instance["ApiURL"] : $field_data["default_value"]); ?>",
-            DisplayMap:<?php echo esc_attr(isset($instance["DisplayMap"]) ? $instance["DisplayMap"] : $field_data["default_value"]); ?>,
-            DisplayDatatable:<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? $instance["DisplayDatatable"] : $field_data["default_value"]); ?>,
-            query:"<?php echo esc_attr(isset($instance["query"]) ? $instance["query"] : $field_data['default_value']); ?>"
+            DisplayMap:<?php echo esc_attr(isset($instance["DisplayMap"]) ? "true" : $field_data["default_value"]); ?>,
+            DisplayDatatable:<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? "true" : $field_data["default_value"]); ?>,
+            query:"<?php echo esc_attr(isset($instance["query"]) ? $instance["query"] : $field_data['default_value']); ?>",
+			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap" ) {$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>"
           }
 
-        </script>
 
+        </script>
 
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     </head>
     <body>
-    <h1>Widget Hal</h1>
-
     <search></search>
 
     </body>
@@ -135,21 +154,33 @@ class Widget_Carto_Hal extends WP_Widget
 	 * @return string|void
 	 */
 	public function form( $instance )
-	{
+	{			
+
+
 		/* Generate admin for fields */
 		foreach($this->fields as $field_name => $field_data)
 		{
 			if($field_data['type'] === 'text'):
+
 				?>
 				<p>
 					<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_data['description'], $this->textdomain ); ?></label>
 					<input class="widefat" id="<?php echo $this->get_field_id($field_name); ?>" name="<?php echo $this->get_field_name($field_name); ?>" type="text" value="<?php echo esc_attr(isset($instance[$field_name]) ? $instance[$field_name] : $field_data['default_value']); ?>" />
 				</p>
 			<?php
-			//elseif($field_data['type'] == 'textarea'):
-			//You can implement more field types like this.
+			
+			elseif($field_data['type'] == 'checkbox'):
+				
+			$status= isset( $instance[$field_name] ) ? (bool) $instance[$field_name] : $field_data['default_value'];
+			?>
+				<p><input class="checkbox" type="checkbox"<?php checked( $status ); ?> id="<?php echo $this->get_field_id($field_name); ?>" name="<?php echo $this->get_field_name($field_name); ?>" />
+				<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_name); ?></label></p>
+
+			<?php
+			
 			else:
 				echo __('Error - Field type not supported', $this->textdomain) . ': ' . $field_data['type'];
+			
 			endif;
 		}
 	}
