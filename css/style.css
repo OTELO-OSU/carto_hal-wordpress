@@ -4,6 +4,23 @@ all:inherit;
 button{
 all:initial;
 }
+.pagination:before, .pagination:after{
+background-color:white;
+}
+
+.scale ins{
+background:white;
+}
+.ui.column.grid>[class*="four wide"].column, .ui.grid>.column.row>[class*="four wide"].column, .ui.grid>.row>[class*="four wide"].column, .ui.grid>[class*="four wide"].column{
+width:34%!important;
+}
+.ui.grid.stackable{
+margin-bottom:10%
+}
+
+#countryinfo{
+margin-top:5%
+}
 
 
 
