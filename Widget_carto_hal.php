@@ -128,8 +128,8 @@ class Widget_Carto_Hal extends WP_Widget
         $=jQuery.noConflict(); 
          var ConfigWidgetHal={
             ApiURL:"<?php echo esc_attr(isset($instance["ApiURL"]) ? $instance["ApiURL"] : $field_data["default_value"]); ?>",
-            DisplayMap:<?php echo esc_attr(isset($instance["DisplayMap"]) ? "true" : $field_data["default_value"]); ?>,
-            DisplayDatatable:<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? "true" : $field_data["default_value"]); ?>,
+            DisplayMap:"<?php echo esc_attr(isset($instance["DisplayMap"]) ? "true" : $field_data["default_value"]); ?>",
+            DisplayDatatable:"<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? "true" : $field_data["default_value"]); ?>",
             query:"<?php echo esc_attr(isset($instance["query"]) ? $instance["query"] : $field_data['default_value']); ?>",
 			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap" ) {if ($value=="ALL") {break;}$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>"
           }

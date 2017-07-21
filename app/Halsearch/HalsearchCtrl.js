@@ -30,7 +30,7 @@ app.controller('searchctrl',['$scope','$rootScope','$http','$q', function($scope
 		$('#country').hide();
 		$('#map').hide();
 		$('#countryinfo').empty();
-		if ($rootScope.ConfigDefault.DisplayDatatable===true) {
+		if ($rootScope.ConfigDefault.DisplayDatatable=="true") {
 			$("#loaderdatatable").show();
 			$("#datatablecontainer").show();
 			$("#mapcontainer").removeClass('centered');
@@ -41,7 +41,7 @@ app.controller('searchctrl',['$scope','$rootScope','$http','$q', function($scope
 			$("#mapcontainer").addClass('centered');
 		}
 
-		if ($rootScope.ConfigDefault.DisplayMap===true) {
+		if ($rootScope.ConfigDefault.DisplayMap=="true") {
 			$("#mapcontainer").show();
 			$("#loadermap").show();
 			$("#datatablecontainer").removeClass('centered');
@@ -219,10 +219,10 @@ app.controller('searchctrl',['$scope','$rootScope','$http','$q', function($scope
     			 		}
 					});
 
-			if ($rootScope.ConfigDefault.DisplayMap===true) {
+			if ($rootScope.ConfigDefault.DisplayMap=="true") {
         	 $scope.rendering_on_map(arrayrender);
 			}
-			if ($rootScope.ConfigDefault.DisplayDatatable===true) {
+			if ($rootScope.ConfigDefault.DisplayDatatable=="true") {
         	 $scope.generate_datatable(arrayrender);
 
 			}
