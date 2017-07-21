@@ -41,26 +41,27 @@ class Widget_Carto_Hal extends WP_Widget
 		$this->add_field('DisplayMap', 'Display map', 'true', 'checkbox');
 		$this->add_field('DisplayDatatable', 'Display table', 'false', 'checkbox');
 		$this->add_field('query', 'Enter a collection', 'UNIV-LORRAINE', 'text');
-		$this->add_field('COMM', 'document_type', 'false', 'checkbox');
-		$this->add_field('ART', 'document_type', 'false', 'checkbox');
-		$this->add_field('IMG', 'document_type', 'false', 'checkbox');
-		$this->add_field('THESE', 'document_type', 'false', 'checkbox');
-		$this->add_field('UNDEFINED', 'document_type', 'false', 'checkbox');
-		$this->add_field('OTHER', 'document_type', 'false', 'checkbox');
-		$this->add_field('COUV', 'document_type', 'false', 'checkbox');
-		$this->add_field('OUV', 'document_type', 'false', 'checkbox');
-		$this->add_field('DOUV', 'document_type', 'false', 'checkbox');
-		$this->add_field('REPORT', 'document_type', 'false', 'checkbox');
-		$this->add_field('HDR', 'document_type', 'false', 'checkbox');
-		$this->add_field('PATENT', 'document_type', 'false', 'checkbox');
-		$this->add_field('VIDEO', 'document_type', 'false', 'checkbox');
-		$this->add_field('LECTURE', 'document_type', 'false', 'checkbox');
-		$this->add_field('NOTE', 'document_type', 'false', 'checkbox');
-		$this->add_field('MAP', 'document_type', 'false', 'checkbox');
-		$this->add_field('SON', 'document_type', 'true', 'checkbox');
-		$this->add_field('OTHERREPORT', 'document_type', 'false', 'checkbox');
-		$this->add_field('PRESCONF', 'document_type', 'false', 'checkbox');
-		$this->add_field('POSTER', 'document_type', 'false', 'checkbox');
+		$this->add_field('ALL', 'ALL ( All document type)', 'false', 'checkbox');
+		$this->add_field('COMM', 'COMM (communication in a congress)', 'false', 'checkbox');
+		$this->add_field('ART', 'ART (article in a journal)', 'false', 'checkbox');
+		$this->add_field('IMG', 'IMG', 'false', 'checkbox');
+		$this->add_field('THESE', 'THESE', 'false', 'checkbox');
+		$this->add_field('UNDEFINED', 'UNDEFINED (pre-publication, working paper)', 'false', 'checkbox');
+		$this->add_field('OTHER', 'OTHER (other publication)', 'false', 'checkbox');
+		$this->add_field('COUV', 'COUV (book chapter)', 'false', 'checkbox');
+		$this->add_field('OUV', 'OUV (Book (including critical edition and translation))', 'false', 'checkbox');
+		$this->add_field('DOUV', 'DOUV (Direction of work, Proceedings)', 'false', 'checkbox');
+		$this->add_field('REPORT', 'REPORT', 'false', 'checkbox');
+		$this->add_field('HDR', 'HDR', 'false', 'checkbox');
+		$this->add_field('PATENT', 'PATENT', 'false', 'checkbox');
+		$this->add_field('VIDEO', 'VIDEO', 'false', 'checkbox');
+		$this->add_field('LECTURE', 'LECTURE', 'false', 'checkbox');
+		$this->add_field('NOTE', 'NOTE (reading note)', 'false', 'checkbox');
+		$this->add_field('MAP', 'MAP', 'false', 'checkbox');
+		$this->add_field('SON', 'SON', 'true', 'checkbox');
+		$this->add_field('OTHERREPORT', 'OTHERREPORT (Other report, seminar, workshop)', 'false', 'checkbox');
+		$this->add_field('PRESCONF', 'PRESCONF (Document associated with scientific events)', 'false', 'checkbox');
+		$this->add_field('POSTER', 'POSTER', 'false', 'checkbox');
 
 
 		//Init the widget
@@ -172,9 +173,15 @@ class Widget_Carto_Hal extends WP_Widget
 			elseif($field_data['type'] == 'checkbox'):
 				
 			$status= isset( $instance[$field_name] ) ? (bool) $instance[$field_name] : $field_data['default_value'];
+			if ($field_name=="COMM") {
+				?><h3>Check document type you want to display</h3><?php
+			}
+			if ($field_name=="DisplayMap") {
+				?><h3>Check render you want to generate</h3><?php
+			}
 			?>
 				<p><input class="checkbox" type="checkbox"<?php checked( $status ); ?> id="<?php echo $this->get_field_id($field_name); ?>" name="<?php echo $this->get_field_name($field_name); ?>" />
-				<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_name); ?></label></p>
+				<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_data['description']); ?></label></p>
 
 			<?php
 			
