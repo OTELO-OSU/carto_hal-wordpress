@@ -131,7 +131,7 @@ class Widget_Carto_Hal extends WP_Widget
             DisplayMap:<?php echo esc_attr(isset($instance["DisplayMap"]) ? "true" : $field_data["default_value"]); ?>,
             DisplayDatatable:<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? "true" : $field_data["default_value"]); ?>,
             query:"<?php echo esc_attr(isset($instance["query"]) ? $instance["query"] : $field_data['default_value']); ?>",
-			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap" ) {$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>"
+			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap" ) {if ($value=="ALL") {break;}$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>"
           }
 
 
@@ -173,17 +173,25 @@ class Widget_Carto_Hal extends WP_Widget
 			elseif($field_data['type'] == 'checkbox'):
 				
 			$status= isset( $instance[$field_name] ) ? (bool) $instance[$field_name] : $field_data['default_value'];
-			if ($field_name=="COMM") {
-				?><h3>Check document type you want to display</h3><?php
+			if ($field_name=="ALL") {
+				?><h3>Check document type you want to display</h3>
+				<?php
+				if(  $status===true){
+					?><p><input class="checkbox" type="checkbox"<?php checked( $status ); ?> id="<?php echo $this->get_field_id($field_name); ?>" name="<?php echo $this->get_field_name($field_name); ?>" />
+				<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_data['description']); ?></label></p>
+				 <?php	break;
+				 } 
 			}
 			if ($field_name=="DisplayMap") {
 				?><h3>Check render you want to generate</h3><?php
 			}
 			?>
+			
 				<p><input class="checkbox" type="checkbox"<?php checked( $status ); ?> id="<?php echo $this->get_field_id($field_name); ?>" name="<?php echo $this->get_field_name($field_name); ?>" />
 				<label for="<?php echo $this->get_field_id($field_name); ?>"><?php _e($field_data['description']); ?></label></p>
 
 			<?php
+
 			
 			else:
 				echo __('Error - Field type not supported', $this->textdomain) . ': ' . $field_data['type'];
