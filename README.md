@@ -12,10 +12,10 @@ Executez cette commande:
 
 	zip -r Widget_carto_hal.zip *
 
-Uploader le Zip génèrer dans le backend de wordpress:
+Uploader le Zip généré dans le backend de wordpress:
 
-Rendez vous dans Plugins, Upload et uploadez le fichier .zip
+	Rendez vous dans "Plugins", "Upload" et uploadez le fichier .zip
 
-Une fois cela fait, rendez vous dans Appaerance/widgets, et selectionnez Widget_carto_hal, glissez deposez ou vous le souhaitez.
+Une fois cela fait, rendez vous dans "Appaerance/widgets", selectionnez "Widget_carto_hal", glissez deposez où vous le souhaitez.
 
 Vous pouvez configurer le widget en suivant les instructions sur le backend.
