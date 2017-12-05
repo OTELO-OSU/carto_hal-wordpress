@@ -38,9 +38,11 @@ class Widget_Carto_Hal extends WP_Widget
 		//Add fields
 		$this->add_field('title', 'Enter title', 'Cartographie HAL', 'text');
 		$this->add_field('ApiURL', 'Enter ApiUrl', 'http://api.archives-ouvertes.fr', 'text');
+		$this->add_field('DisplayTitle', 'Display title', 'true', 'checkbox');
 		$this->add_field('DisplayMap', 'Display map', 'true', 'checkbox');
 		$this->add_field('DisplayDatatable', 'Display table', 'false', 'checkbox');
 		$this->add_field('query', 'Enter a collection', 'UNIV-LORRAINE', 'text');
+		$this->add_field('CountryField', 'Enter a CountryField', 'structCountry_s', 'text');
 		$this->add_field('ALL', 'ALL ( All document type)', 'false', 'checkbox');
 		$this->add_field('COMM', 'COMM (communication in a congress)', 'false', 'checkbox');
 		$this->add_field('ART', 'ART (article in a journal)', 'false', 'checkbox');
@@ -130,8 +132,12 @@ class Widget_Carto_Hal extends WP_Widget
             ApiURL:"<?php echo esc_attr(isset($instance["ApiURL"]) ? $instance["ApiURL"] : $field_data["default_value"]); ?>",
             DisplayMap:"<?php echo esc_attr(isset($instance["DisplayMap"]) ? "true" : $field_data["default_value"]); ?>",
             DisplayDatatable:"<?php echo esc_attr(isset($instance["DisplayDatatable"]) ? "true" : $field_data["default_value"]); ?>",
+			DisplayTitle:"<?php echo esc_attr(isset($instance["DisplayTitle"]) ? "true" : $field_data["default_value"]); ?>",
             query:"<?php echo esc_attr(isset($instance["query"]) ? $instance["query"] : $field_data['default_value']); ?>",
-			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap" ) {if ($value=="ALL") {break;}$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>"
+			DocumentType:"<?php $document_type=array_keys($instance,'on');$type="";foreach ($document_type as $key => $value) {if ($value!="DisplayDatatable" AND $value!="DisplayMap"AND $value!="DisplayTitle" ) {if ($value=="ALL") {break;}$type=$type.','.$value;}}$type=preg_replace('/,/','', $type, 1); echo $type; ?>",
+			CountryField:"<?php echo esc_attr(isset($instance["CountryField"]) ? $instance["CountryField"] : $field_data["default_value"]); ?>"
+
+
           }
 
 
